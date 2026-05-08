@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAGHELANCE STUDIO — Your Brand, Elevated.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4F11FF;
+    --lime: #D2FF5E;
+    --dark: #0A0514;
+    --white: #F5F5F0;
+    --gray: #100828;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--dark); color: var(--white); font-family: 'Syne', sans-serif; overflow-x: hidden; cursor: none; }
+
+  /* CURSOR */
+  .cursor { width: 10px; height: 10px; background: var(--lime); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s; mix-blend-mode: exclusion; }
+  .cursor-ring { width: 38px; height: 38px; border: 1px solid var(--lime); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s; opacity: 0.4; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 22px 64px; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s, backdrop-filter 0.3s; }
+  nav.scrolled { background: rgba(10,5,20,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(210,255,94,0.08); }
+  .nav-logo { font-family: 'Space Mono', monospace; font-size: 17px; font-weight: 700; color: var(--lime); text-decoration: none; letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(245,245,240,0.65); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--lime); transition: width 0.3s; }
+  .nav-links a:hover { color: var(--lime); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta { background: var(--lime) !important; color: var(--dark) !important; padding: 10px 22px !important; border-radius: 2px; font-weight: 800 !important; opacity: 1 !important; transition: transform 0.2s, box-shadow 0.2s !important; }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(210,255,94,0.3); }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  #home { min-height: 100vh; display: flex; align-items: center; padding: 130px 64px 80px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(79,17,255,0.4) 0%, transparent 65%), radial-gradient(ellipse 40% 40% at 15% 80%, rgba(79,17,255,0.15) 0%, transparent 60%); }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(210,255,94,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(210,255,94,0.04) 1px, transparent 1px); background-size: 80px 80px; }
+  .hero-content { position: relative; z-index: 2; max-width: 950px; }
+  .hero-eyebrow { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: var(--lime); margin-bottom: 28px; display: flex; align-items: center; gap: 14px; opacity: 0; animation: fadeUp 0.8s forwards 0.2s; }
+  .hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--lime); flex-shrink: 0; }
+  h1.hero-headline { font-size: clamp(60px, 9vw, 128px); font-weight: 800; line-height: 0.93; letter-spacing: -4px; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s forwards 0.4s; }
+  .hero-headline .acc { color: var(--lime); }
+  .hero-sub { font-size: 18px; color: rgba(245,245,240,0.6); line-height: 1.75; max-width: 540px; margin-bottom: 52px; opacity: 0; animation: fadeUp 0.8s forwards 0.6s; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s forwards 0.8s; }
+  .btn-p { background: var(--lime); color: var(--dark); padding: 16px 38px; border: none; border-radius: 2px; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-p:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(210,255,94,0.35); }
+  .btn-s { background: transparent; color: var(--white); padding: 16px 38px; border: 1px solid rgba(245,245,240,0.2); border-radius: 2px; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+  .btn-s:hover { border-color: var(--lime); color: var(--lime); transform: translateY(-3px); }
+  .scroll-hint { position: absolute; bottom: 40px; left: 64px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(245,245,240,0.25); display: flex; align-items: center; gap: 16px; opacity: 0; animation: fadeUp 0.8s forwards 1.2s; }
+  .scroll-line { width: 60px; height: 1px; background: rgba(245,245,240,0.15); overflow: hidden; position: relative; }
+  .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--lime); animation: sl 2.2s infinite 1.5s; }
+  @keyframes sl { 0%{left:-100%} 100%{left:100%} }
+
+  /* TRUST BAR */
+  .trust-bar { background: var(--lime); padding: 18px 0; overflow: hidden; }
+  .trust-track { display: flex; gap: 72px; animation: tscroll 22s linear infinite; white-space: nowrap; }
+  .trust-item { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--dark); letter-spacing: 1.5px; text-transform: uppercase; flex-shrink: 0; display: flex; align-items: center; gap: 10px; }
+  .trust-item::before { content: '✦'; font-size: 9px; color: rgba(10,5,20,0.4); }
+  @keyframes tscroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* COMMON */
+  section { padding: 120px 64px; }
+  .sl { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--lime); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+  .sl::before { content: ''; width: 30px; height: 1px; background: var(--lime); }
+  .st { font-size: clamp(38px, 5vw, 70px); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; }
+  .ss { font-size: 16px; color: rgba(245,245,240,0.5); line-height: 1.8; max-width: 500px; }
+
+  /* SERVICES */
+  #services { background: var(--gray); }
+  .svc-hd { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 72px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(210,255,94,0.06); border: 1px solid rgba(210,255,94,0.06); }
+  .svc-card { background: var(--gray); padding: 48px 36px; position: relative; overflow: hidden; transition: background 0.3s; }
+  .svc-card::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--lime); transition: height 0.4s; }
+  .svc-card:hover { background: rgba(79,17,255,0.18); }
+  .svc-card:hover::before { height: 100%; }
+  .svc-n { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; color: rgba(210,255,94,0.35); margin-bottom: 22px; }
+  .svc-icon { font-size: 30px; margin-bottom: 18px; display: block; }
+  .svc-name { font-size: 21px; font-weight: 800; margin-bottom: 12px; line-height: 1.25; }
+  .svc-desc { font-size: 14px; color: rgba(245,245,240,0.48); line-height: 1.75; }
+  .svc-cta { margin-top: 48px; text-align: center; }
+
+  /* ABOUT */
+  #about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+  .about-frame { width: 100%; aspect-ratio: 4/5; background: linear-gradient(135deg, var(--purple) 0%, #170050 100%); border-radius: 4px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 90px; }
+  .about-frame::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(210,255,94,0.03) 40px, rgba(210,255,94,0.03) 41px); }
+  .about-badge { position: absolute; bottom: -18px; right: -18px; background: var(--lime); color: var(--dark); padding: 22px 26px; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; text-align: center; line-height: 1.5; z-index: 2; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .about-badge strong { display: block; font-size: 30px; line-height: 1; }
+  .about-body { font-size: 16px; color: rgba(245,245,240,0.6); line-height: 1.9; margin: 28px 0 36px; }
+  .about-body p+p { margin-top: 18px; }
+  .atags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+  .atag { background: rgba(79,17,255,0.25); border: 1px solid rgba(79,17,255,0.45); color: rgba(245,245,240,0.75); padding: 6px 16px; border-radius: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tools-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 44px; padding-top: 44px; border-top: 1px solid rgba(210,255,94,0.1); }
+  .tool { background: rgba(210,255,94,0.05); border: 1px solid rgba(210,255,94,0.12); color: rgba(210,255,94,0.65); padding: 7px 16px; border-radius: 2px; font-family: 'Space Mono', monospace; font-size: 11px; }
+
+  /* VALUES */
+  #values { background: var(--purple); position: relative; overflow: hidden; }
+  #values::before { content: 'VAGHELANCE'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 220px; font-weight: 800; color: rgba(255,255,255,0.04); white-space: nowrap; pointer-events: none; letter-spacing: -10px; }
+  .val-hd { text-align: center; margin-bottom: 80px; position: relative; z-index: 2; }
+  .val-hd .sl { justify-content: center; }
+  .values-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 40px; position: relative; z-index: 2; }
+  .val-card { border-top: 2px solid rgba(210,255,94,0.2); padding-top: 28px; transition: border-color 0.3s; }
+  .val-card:hover { border-top-color: var(--lime); }
+  .val-num { font-family: 'Space Mono', monospace; font-size: 50px; font-weight: 700; color: rgba(210,255,94,0.15); line-height: 1; margin-bottom: 20px; }
+  .val-title { font-size: 22px; font-weight: 800; color: var(--lime); margin-bottom: 12px; }
+  .val-desc { font-size: 14px; color: rgba(245,245,240,0.55); line-height: 1.75; }
+
+  /* WORK */
+  #work { background: var(--dark); }
+  .work-hd { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; }
+  .work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: rgba(79,17,255,0.08); }
+  .wcard { aspect-ratio: 4/3; position: relative; overflow: hidden; cursor: pointer; }
+  .wcard-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 52px; transition: transform 0.5s; }
+  .wcard:hover .wcard-inner { transform: scale(1.08); }
+  .wcard-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,5,20,0.96) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; opacity: 0; transition: opacity 0.3s; }
+  .wcard:hover .wcard-ov { opacity: 1; }
+  .wcard-cat { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
+  .wcard-name { font-size: 19px; font-weight: 800; }
+  .bg1{background:linear-gradient(135deg,#160050,#4F11FF)} .bg2{background:linear-gradient(135deg,#0a2d1a,#1a6b3a)} .bg3{background:linear-gradient(135deg,#2d1a00,#7b4400)} .bg4{background:linear-gradient(135deg,#1a001a,#700060)} .bg5{background:linear-gradient(135deg,#001a2d,#006b6b)} .bg6{background:linear-gradient(135deg,#2d2000,#7b5500)}
+  .work-cta { margin-top: 56px; text-align: center; }
+
+  /* CAREERS */
+  #careers { background: var(--gray); }
+  .car-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+  .reasons { display: grid; gap: 24px; margin-top: 48px; }
+  .reason { display: flex; gap: 18px; align-items: flex-start; padding: 24px 28px; background: rgba(79,17,255,0.1); border-left: 2px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .reason:hover { border-left-color: var(--lime); background: rgba(79,17,255,0.2); }
+  .r-icon { font-size: 22px; flex-shrink: 0; }
+  .r-title { font-size: 16px; font-weight: 800; margin-bottom: 5px; }
+  .r-text { font-size: 13px; color: rgba(245,245,240,0.5); line-height: 1.65; }
+  .car-box { background: var(--purple); padding: 56px; border-radius: 4px; position: relative; overflow: hidden; }
+  .car-box::before { content: ''; position: absolute; top: -50px; right: -50px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(210,255,94,0.18), transparent 70%); pointer-events: none; }
+  .car-box .st { font-size: 38px; color: var(--lime); }
+  .car-box p { color: rgba(245,245,240,0.65); line-height: 1.8; margin: 18px 0 34px; }
+
+  /* CONTACT */
+  #contact { background: var(--dark); }
+  .con-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+  .ci-items { display: grid; gap: 28px; margin-top: 44px; }
+  .ci-item { display: flex; gap: 18px; align-items: flex-start; }
+  .ci-icon { width: 44px; height: 44px; background: rgba(79,17,255,0.25); border: 1px solid rgba(79,17,255,0.45); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .ci-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--lime); margin-bottom: 4px; }
+  .ci-val { font-size: 14px; color: rgba(245,245,240,0.75); }
+  .ci-val a { color: inherit; text-decoration: none; }
+  .ci-val a:hover { color: var(--lime); }
+  .con-form { display: grid; gap: 18px; }
+  .fg { display: grid; gap: 7px; }
+  .fg label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(210,255,94,0.55); }
+  .fg input, .fg select, .fg textarea { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 2px; padding: 13px 16px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 15px; outline: none; width: 100%; transition: border-color 0.25s, background 0.25s; }
+  .fg select option { background: #0A0514; }
+  .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--lime); background: rgba(210,255,94,0.04); }
+  .fg textarea { resize: vertical; min-height: 120px; }
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .fsub { background: var(--lime); color: var(--dark); padding: 17px; border: none; border-radius: 2px; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; width: 100%; transition: transform 0.2s, box-shadow 0.2s; }
+  .fsub:hover { transform: translateY(-3px); box-shadow: 0 12px 38px rgba(210,255,94,0.28); }
+  .fsuccess { display: none; text-align: center; padding: 40px; background: rgba(210,255,94,0.07); border: 1px solid rgba(210,255,94,0.18); border-radius: 4px; }
+  .fsuccess.show { display: block; }
+  .fsuccess h3 { font-size: 26px; color: var(--lime); margin-bottom: 10px; }
+  .fsuccess p { color: rgba(245,245,240,0.6); font-size: 15px; }
+
+  /* CTA BANNER */
+  .cta-band { background: var(--lime); padding: 96px 64px; text-align: center; position: relative; overflow: hidden; }
+  .cta-band::before { content: 'VAGHELANCE'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 200px; font-weight: 800; color: rgba(10,5,20,0.06); white-space: nowrap; pointer-events: none; letter-spacing: -10px; }
+  .cta-band h2 { font-size: clamp(38px, 6vw, 80px); font-weight: 800; color: var(--dark); letter-spacing: -2px; margin-bottom: 18px; line-height: 1.05; position: relative; z-index: 1; }
+  .cta-band p { font-size: 17px; color: rgba(10,5,20,0.6); max-width: 460px; margin: 0 auto 40px; line-height: 1.75; position: relative; z-index: 1; }
+  .btn-dark { background: var(--dark); color: var(--lime); padding: 17px 46px; border: none; border-radius: 2px; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; text-decoration: none; display: inline-block; cursor: pointer; position: relative; z-index: 1; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(10,5,20,0.3); }
+
+  /* LINK */
+  .lnk { color: var(--lime); text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 1px; display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--lime); padding-bottom: 3px; transition: gap 0.2s; }
+  .lnk:hover { gap: 16px; }
+
+  /* FOOTER */
+  footer { background: #040110; padding: 80px 64px 40px; border-top: 1px solid rgba(210,255,94,0.06); }
+  .ft-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 56px; }
+  .ft-brand .nav-logo { font-size: 20px; display: block; margin-bottom: 14px; }
+  .ft-tag { font-size: 13px; color: rgba(245,245,240,0.35); line-height: 1.75; margin-bottom: 22px; }
+  .ft-soc { display: flex; gap: 10px; }
+  .soc { width: 36px; height: 36px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 2px; display: flex; align-items: center; justify-content: center; color: rgba(245,245,240,0.45); text-decoration: none; font-size: 13px; font-family: 'Space Mono', monospace; font-weight: 700; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+  .soc:hover { background: rgba(210,255,94,0.09); border-color: var(--lime); color: var(--lime); }
+  .ft-col h4 { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--lime); margin-bottom: 22px; }
+  .ft-col ul { list-style: none; display: grid; gap: 10px; }
+  .ft-col ul a { color: rgba(245,245,240,0.4); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .ft-col ul a:hover { color: var(--white); }
+  .ft-bot { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; }
+  .ft-copy { font-family: 'Space Mono', monospace; font-size: 11px; color: rgba(245,245,240,0.2); }
+  .ft-links { display: flex; gap: 20px; }
+  .ft-links a { font-size: 11px; color: rgba(245,245,240,0.2); text-decoration: none; transition: color 0.2s; }
+  .ft-links a:hover { color: var(--lime); }
+
+  /* ANIMATE */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
+  .rev { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .rev.vis { opacity: 1; transform: translateY(0); }
+
+  ::-webkit-scrollbar{width:3px} ::-webkit-scrollbar-track{background:var(--dark)} ::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px}
+
+  @media(max-width:900px){
+    nav{padding:18px 24px}
+    .nav-links{display:none}
+    section,#home{padding:80px 24px}
+    h1.hero-headline{font-size:52px;letter-spacing:-2px}
+    .hero-btns{flex-direction:column;align-items:flex-start}
+    .svc-hd,#about,.con-inner,.car-inner{grid-template-columns:1fr;gap:40px}
+    .svc-grid,.work-grid{grid-template-columns:1fr}
+    .values-grid{grid-template-columns:1fr 1fr}
+    .ft-top{grid-template-columns:1fr 1fr;gap:40px}
+    .cta-band,.cta-band p{padding:80px 24px;margin-left:auto;margin-right:auto}
+    footer{padding:60px 24px 32px}
+    .ft-bot{flex-direction:column;gap:14px;text-align:center}
+    .frow{grid-template-columns:1fr}
+    .scroll-hint{left:24px}
+    .about-badge{bottom:-12px;right:-8px;padding:16px 18px}
+    .work-hd{flex-direction:column;align-items:flex-start;gap:20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#home">VAGHELANCE<span> STUDIO</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank" rel="noopener">Work</a></li>
+    <li><a href="#careers">Join Us</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Elevate Your Brand</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">VAGHELANCE STUDIO — Creative Studio</p>
+    <h1 class="hero-headline">Your Brand,<br><span class="acc">Elevated.</span></h1>
+    <p class="hero-sub">A full-service creative studio for bold brands — handling everything from logo design and packaging to reels, meta ads, and content strategy.</p>
+    <div class="hero-btns">
+      <a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank" rel="noopener" class="btn-p">See Our Work →</a>
+      <a href="#contact" class="btn-s">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-track">
+    <span class="trust-item">8+ Design Disciplines</span>
+    <span class="trust-item">50+ Projects Delivered</span>
+    <span class="trust-item">7 Industry Tools Mastered</span>
+    <span class="trust-item">1 Studio. All Services.</span>
+    <span class="trust-item">2+ Years Experience</span>
+    <span class="trust-item">Full Brand Solutions</span>
+    <span class="trust-item">Rajkot, India</span>
+    <span class="trust-item">8+ Design Disciplines</span>
+    <span class="trust-item">50+ Projects Delivered</span>
+    <span class="trust-item">7 Industry Tools Mastered</span>
+    <span class="trust-item">1 Studio. All Services.</span>
+    <span class="trust-item">2+ Years Experience</span>
+    <span class="trust-item">Full Brand Solutions</span>
+    <span class="trust-item">Rajkot, India</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-hd rev">
+    <div>
+      <p class="sl">What We Do</p>
+      <h2 class="st">Everything Your<br>Brand Needs</h2>
+    </div>
+    <p class="ss">From visual identity to viral content — we cover it all under one roof. No agency-hopping required.</p>
+  </div>
+  <div class="svc-grid rev">
+    <div class="svc-card"><p class="svc-n">01</p><span class="svc-icon">🎨</span><h3 class="svc-name">Brand Identity Design</h3><p class="svc-desc">Logos, color systems, typography, and design language that make your brand instantly recognizable across every touchpoint.</p></div>
+    <div class="svc-card"><p class="svc-n">02</p><span class="svc-icon">📦</span><h3 class="svc-name">Print & Packaging</h3><p class="svc-desc">T-shirts, clothing, banners, and packaging that stands out on shelves and in the wild. Print-ready in all formats.</p></div>
+    <div class="svc-card"><p class="svc-n">03</p><span class="svc-icon">📱</span><h3 class="svc-name">Digital & UI Design</h3><p class="svc-desc">Social media graphics, UI/UX, ads, posts, and stories that stop the scroll and drive action.</p></div>
+    <div class="svc-card"><p class="svc-n">04</p><span class="svc-icon">📸</span><h3 class="svc-name">Photography & Mockups</h3><p class="svc-desc">Product photography, AI-generated art, and polished mockups — professional visuals at lower cost.</p></div>
+    <div class="svc-card"><p class="svc-n">05</p><span class="svc-icon">🎬</span><h3 class="svc-name">Video & Reels</h3><p class="svc-desc">Video shoots, reel making, editing, and scriptwriting. We also provide on-camera spokesperson on request.</p></div>
+    <div class="svc-card"><p class="svc-n">06</p><span class="svc-icon">📊</span><h3 class="svc-name">Digital Marketing</h3><p class="svc-desc">Meta ads, content writing, hashtag & keyword research, SEO, and social media management — full strategy and execution.</p></div>
+  </div>
+  <div class="svc-cta rev">
+    <a href="#contact" class="lnk">Start a Project with Us →</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="rev" style="position:relative">
+    <div class="about-frame">🎨</div>
+    <div class="about-badge"><strong>2+</strong>Years of<br>Creative Work</div>
+  </div>
+  <div class="rev">
+    <p class="sl">About the Studio</p>
+    <h2 class="st">Built by a Creator.<br>Run Like a Studio.</h2>
+    <div class="about-body">
+      <p>VAGHELANCE STUDIO was founded by Aryan Vaghela with one belief: that a brand is only as strong as how it looks, feels, and communicates. What started as a passion for design grew into a full-service creative studio handling everything — from the very first logo sketch to the final Instagram reel.</p>
+      <p>Most studios do one thing. We do everything. We are not just designers — we are brand architects. We think about your color palette and your content strategy. We build the visual identity and then make sure it performs online. That is what makes VAGHELANCE STUDIO different.</p>
+      <p>Behind VAGHELANCE STUDIO is a tight-knit team of creatives — designers, photographers, editors, and strategists — who care about the work as much as you do.</p>
+    </div>
+    <div class="atags">
+      <span class="atag">Founder & Creative Director</span>
+      <span class="atag">MBA — Business Analytics</span>
+      <span class="atag">Graphic Designer</span>
+      <span class="atag">AI Prompt Engineer</span>
+      <span class="atag">Digital Marketer</span>
+      <span class="atag">Rajkot, India</span>
+    </div>
+    <a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank" rel="noopener" class="btn-p">View Portfolio on Behance →</a>
+    <div class="tools-row">
+      <span class="tool">Figma</span><span class="tool">Photoshop</span><span class="tool">Illustrator</span><span class="tool">Canva</span><span class="tool">Premiere Pro</span><span class="tool">DaVinci Resolve</span><span class="tool">CapCut</span><span class="tool">Power BI</span><span class="tool">Tableau</span><span class="tool">Claude AI</span><span class="tool">ChatGPT</span>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="val-hd rev">
+    <p class="sl" style="justify-content:center;">Our Principles</p>
+    <h2 class="st">How We Work</h2>
+  </div>
+  <div class="values-grid rev">
+    <div class="val-card"><div class="val-num">01</div><h3 class="val-title">Quality First</h3><p class="val-desc">We never ship work we are not proud of. Every pixel, word, and frame gets full attention before it leaves the studio.</p></div>
+    <div class="val-card"><div class="val-num">02</div><h3 class="val-title">Full Ownership</h3><p class="val-desc">One studio, zero hand-offs. We handle the entire creative lifecycle — strategy, design, production, and delivery.</p></div>
+    <div class="val-card"><div class="val-num">03</div><h3 class="val-title">Brand Thinking</h3><p class="val-desc">We do not just execute tasks. We think strategically about your brand at every step and every decision.</p></div>
+    <div class="val-card"><div class="val-num">04</div><h3 class="val-title">On Time. Always.</h3><p class="val-desc">Deadlines are not suggestions. We deliver on schedule, every time, without compromising on quality.</p></div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-hd rev">
+    <div>
+      <p class="sl">Portfolio</p>
+      <h2 class="st">The Work Speaks<br>for Itself.</h2>
+    </div>
+    <a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank" rel="noopener" class="lnk">Full Portfolio on Behance →</a>
+  </div>
+  <div class="work-grid rev">
+    <div class="wcard"><div class="wcard-inner bg1">🎯</div><div class="wcard-ov"><p class="wcard-cat">Brand Identity</p><p class="wcard-name">Logo & Visual Systems</p></div></div>
+    <div class="wcard"><div class="wcard-inner bg2">📱</div><div class="wcard-ov"><p class="wcard-cat">Social Media</p><p class="wcard-name">Scroll-Stopping Content</p></div></div>
+    <div class="wcard"><div class="wcard-inner bg3">📦</div><div class="wcard-ov"><p class="wcard-cat">Print & Packaging</p><p class="wcard-name">Product Packaging Design</p></div></div>
+    <div class="wcard"><div class="wcard-inner bg4">🤖</div><div class="wcard-ov"><p class="wcard-cat">AI Art & Mockups</p><p class="wcard-name">AI-Generated Visual Assets</p></div></div>
+    <div class="wcard"><div class="wcard-inner bg5">📸</div><div class="wcard-ov"><p class="wcard-cat">Photography</p><p class="wcard-name">Product Photography</p></div></div>
+    <div class="wcard"><div class="wcard-inner bg6">🎬</div><div class="wcard-ov"><p class="wcard-cat">Video & Reels</p><p class="wcard-name">Brand Videos & Content</p></div></div>
+  </div>
+  <div class="work-cta rev">
+    <a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank" rel="noopener" class="btn-p">View Full Portfolio on Behance →</a>
+  </div>
+</section>
+
+<!-- CAREERS -->
+<section id="careers">
+  <div class="car-inner">
+    <div class="rev">
+      <p class="sl">Join the Studio</p>
+      <h2 class="st">Join the<br>Studio.</h2>
+      <p class="ss">VAGHELANCE STUDIO is a growing creative studio on a mission to build brands that matter. We look for talented designers, editors, photographers, marketers, and creative thinkers.</p>
+      <div class="reasons">
+        <div class="reason"><span class="r-icon">💡</span><div><h4 class="r-title">Real Creative Work</h4><p class="r-text">Not just following briefs — building ideas from scratch and owning your craft.</p></div></div>
+        <div class="reason"><span class="r-icon">🚀</span><div><h4 class="r-title">Room to Grow</h4><p class="r-text">This is a studio you can build with, not just work for. Your growth is our growth.</p></div></div>
+        <div class="reason"><span class="r-icon">🤝</span><div><h4 class="r-title">Small Team, Big Energy</h4><p class="r-text">Collaborative culture — tight-knit, zero politics. Everyone's voice matters here.</p></div></div>
+        <div class="reason"><span class="r-icon">🎲</span><div><h4 class="r-title">Variety</h4><p class="r-text">No two projects are the same. Perfect if you love creative diversity in your work.</p></div></div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="car-box">
+        <p class="sl">Current Status</p>
+        <h3 class="st" style="font-size:38px;color:var(--lime)">We're Building the Team.</h3>
+        <p>We do not have open positions right now — but things move fast around here. Drop us your portfolio and tell us what you do best. If the right opportunity comes up, we will reach out.</p>
+        <a href="mailto:aryanvaghelapro@gmail.com?subject=Portfolio Submission — VAGHELANCE STUDIO" class="btn-p">Send Your Portfolio →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="con-inner">
+    <div class="rev">
+      <p class="sl">Get in Touch</p>
+      <h2 class="st">Let's Build Something Together.</h2>
+      <p class="ss">Whether you need a logo, a brand overhaul, a product shoot, or a full marketing strategy — we are ready. We'll get back within 24 hours.</p>
+      <div class="ci-items">
+        <div class="ci-item"><div class="ci-icon">✉️</div><div><p class="ci-label">Email</p><p class="ci-val"><a href="mailto:aryanvaghelapro@gmail.com">aryanvaghelapro@gmail.com</a></p></div></div>
+        <div class="ci-item"><div class="ci-icon">📞</div><div><p class="ci-label">Phone / WhatsApp</p><p class="ci-val"><a href="https://wa.me/919426866863" target="_blank">+91 9426866863</a></p></div></div>
+        <div class="ci-item"><div class="ci-icon">🔗</div><div><p class="ci-label">LinkedIn</p><p class="ci-val"><a href="https://www.linkedin.com/in/aryanvaghela" target="_blank">linkedin.com/in/aryanvaghela</a></p></div></div>
+        <div class="ci-item"><div class="ci-icon">📍</div><div><p class="ci-label">Location</p><p class="ci-val">Rajkot, Gujarat, India — Available Remotely</p></div></div>
+        <div class="ci-item"><div class="ci-icon">🕐</div><div><p class="ci-label">Working Hours</p><p class="ci-val">Mon–Sat, 10 AM – 7 PM IST</p></div></div>
+        <div class="ci-item"><div class="ci-icon">🎨</div><div><p class="ci-label">Portfolio</p><p class="ci-val"><a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank">View on Behance →</a></p></div></div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="con-form" id="conForm">
+        <div class="frow">
+          <div class="fg"><label>Your Name *</label><input type="text" id="fn" placeholder="Rahul Sharma" required></div>
+          <div class="fg"><label>Your Email *</label><input type="email" id="fe" placeholder="rahul@brand.com" required></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label>Phone Number</label><input type="tel" id="fp" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="fg"><label>Service Needed</label>
+            <select id="fs">
+              <option value="">Select a service…</option>
+              <option>Brand Identity</option><option>Print & Packaging</option><option>Digital & Social Design</option><option>Photography & Mockups</option><option>Video & Reels</option><option>Digital Marketing</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label>Project Brief</label><textarea id="fb" placeholder="Tell us about your project, brand, and what you need…"></textarea></div>
+        <div class="fg"><label>Budget Range</label>
+          <select id="fbg">
+            <option value="">Select budget range…</option>
+            <option>Under ₹10K</option><option>₹10K – ₹30K</option><option>₹30K – ₹75K</option><option>₹75K+</option><option>Let's Discuss</option>
+          </select>
+        </div>
+        <button type="button" class="fsub" onclick="doSubmit()">Send Message →</button>
+      </div>
+      <div class="fsuccess" id="fSucc">
+        <h3>✓ Message Received!</h3>
+        <p>Thank you! We have received your message and will get back to you within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-band">
+  <h2>Ready to Build Something Great?</h2>
+  <p>Whether you need a full brand overhaul or a single campaign — we are here to make it happen.</p>
+  <a href="#contact" class="btn-dark">Start a Project →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <a class="nav-logo" href="#home">VAGHELANCE<span> STUDIO</span></a>
+      <p class="ft-tag">Your brand, elevated.<br>A full-service creative studio based in Rajkot, India.</p>
+      <div class="ft-soc">
+        <a href="https://www.linkedin.com/in/aryanvaghela" target="_blank" class="soc" title="LinkedIn">in</a>
+        <a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank" class="soc" title="Behance">Be</a>
+        <a href="https://wa.me/919426866863" target="_blank" class="soc" title="WhatsApp">W</a>
+        <a href="mailto:aryanvaghelapro@gmail.com" class="soc" title="Email">@</a>
+      </div>
+    </div>
+    <div class="ft-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank">Work</a></li>
+        <li><a href="#careers">Join Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Brand Identity</a></li>
+        <li><a href="#services">Print & Packaging</a></li>
+        <li><a href="#services">Social Media Design</a></li>
+        <li><a href="#services">Photography</a></li>
+        <li><a href="#services">Video & Reels</a></li>
+        <li><a href="#services">Digital Marketing</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/aryanvaghela" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank">Behance Portfolio</a></li>
+        <li><a href="https://wa.me/919426866863" target="_blank">Chat on WhatsApp</a></li>
+        <li><a href="mailto:aryanvaghelapro@gmail.com">Email Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <p class="ft-copy">© 2025 VAGHELANCE STUDIO. All Rights Reserved. | Aryan Vaghela</p>
+    <div class="ft-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // CURSOR
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function ani(){
+    cur.style.left=mx+'px'; cur.style.top=my+'px';
+    rx+=(mx-rx)*0.13; ry+=(my-ry)*0.13;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(ani);
+  })();
+  document.querySelectorAll('a,button,.wcard,.svc-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2)';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.opacity='0.85';});
+    el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='0.4';});
+  });
+
+  // NAV
+  window.addEventListener('scroll',()=>{
+    document.getElementById('navbar').classList.toggle('scrolled',scrollY>60);
+  });
+
+  // REVEAL
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*70);obs.unobserve(e.target);}
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+  // FORM
+  function doSubmit(){
+    const n=document.getElementById('fn').value.trim();
+    const em=document.getElementById('fe').value.trim();
+    if(!n||!em){alert('Please fill in your name and email.');return;}
+    const sub=encodeURIComponent('New Project Inquiry — VAGHELANCE STUDIO');
+    const bod=encodeURIComponent(`Name: ${n}\nEmail: ${em}\nPhone: ${document.getElementById('fp').value||'Not provided'}\nService: ${document.getElementById('fs').value||'Not specified'}\nBudget: ${document.getElementById('fbg').value||'Not specified'}\n\nBrief:\n${document.getElementById('fb').value}`);
+    window.location.href=`mailto:aryanvaghelapro@gmail.com?subject=${sub}&body=${bod}`;
+    document.getElementById('conForm').style.display='none';
+    document.getElementById('fSucc').classList.add('show');
+  }
+
+  // SMOOTH SCROLL
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+</script>
+</body>
+</html>
