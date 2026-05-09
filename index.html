@@ -400,6 +400,39 @@ section{padding:120px 48px;}
 
 /* SERVICES */
 #services{background:var(--grey);}
+.services-category{
+  margin-bottom:64px;
+}
+.services-category:last-child{margin-bottom:0;}
+.services-cat-header{
+  display:flex;align-items:center;gap:20px;
+  margin-bottom:20px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(79,17,255,0.2);
+}
+.services-cat-icon{
+  width:48px;height:48px;
+  background:var(--purple);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  flex-shrink:0;
+}
+.services-cat-label{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.25em;
+  color:var(--lime);
+  text-transform:uppercase;
+  margin-bottom:2px;
+}
+.services-cat-title{
+  font-family:var(--font-display);
+  font-size:32px;
+  letter-spacing:0.06em;
+  color:var(--white);
+  line-height:1;
+}
 .services-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -407,9 +440,11 @@ section{padding:120px 48px;}
   background:rgba(79,17,255,0.15);
   border:1px solid rgba(79,17,255,0.15);
 }
+.services-grid-2{grid-template-columns:repeat(2,1fr);}
+.services-grid-4{grid-template-columns:repeat(4,1fr);}
 .service-card{
   background:var(--grey);
-  padding:48px 40px;
+  padding:40px 36px;
   position:relative;
   overflow:hidden;
   transition:all 0.4s;
@@ -427,30 +462,31 @@ section{padding:120px 48px;}
 .service-card:hover::before{transform:scaleX(1);}
 .service-card:hover{background:#1f1935;}
 .service-icon{
-  font-size:32px;
-  margin-bottom:20px;
+  font-size:28px;
+  margin-bottom:16px;
   display:block;
 }
 .service-num{
-  position:absolute;top:24px;right:32px;
+  position:absolute;top:20px;right:28px;
   font-family:var(--font-display);
-  font-size:64px;
+  font-size:56px;
   color:rgba(79,17,255,0.2);
   line-height:1;
 }
 .service-title{
   font-family:var(--font-display);
-  font-size:28px;
+  font-size:24px;
   letter-spacing:0.05em;
-  margin-bottom:12px;
+  margin-bottom:10px;
   transition:color 0.3s;
+  line-height:1.1;
 }
 .service-card:hover .service-title{color:var(--lime);}
 .service-desc{
-  font-size:14px;
+  font-size:13px;
   color:rgba(245,243,255,0.5);
   line-height:1.7;
-  margin-bottom:20px;
+  margin-bottom:16px;
 }
 .service-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .tag{
@@ -464,6 +500,90 @@ section{padding:120px 48px;}
   border-radius:100px;
   text-transform:uppercase;
 }
+/* PRINT FORMAT PILLS */
+.print-formats{
+  margin-top:24px;
+  padding-top:20px;
+  border-top:1px solid rgba(79,17,255,0.2);
+}
+.print-formats-label{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.2em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.print-format-list{
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.print-pill{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.08em;
+  color:var(--white);
+  background:rgba(79,17,255,0.18);
+  border:1px solid rgba(79,17,255,0.35);
+  padding:5px 12px;
+  border-radius:100px;
+  text-transform:uppercase;
+  transition:all 0.2s;
+}
+.print-pill:hover{
+  background:var(--purple);
+  border-color:var(--purple);
+}
+/* SERVICE WIDE CARD (spans columns) */
+.service-card-wide{
+  grid-column:1 / -1;
+  background:var(--grey);
+  padding:40px;
+  position:relative;
+  overflow:hidden;
+  transition:all 0.4s;
+  border-top:1px solid rgba(79,17,255,0.15);
+}
+.service-card-wide::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(to right,var(--purple),var(--lime));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.service-card-wide:hover::before{transform:scaleX(1);}
+.service-card-wide:hover{background:#1f1935;}
+.wide-inner{
+  display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:start;
+}
+.wide-left .service-title{font-size:28px;}
+.wide-right{}
+.wide-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.wide-item{
+  padding:14px 16px;
+  border:1px solid rgba(79,17,255,0.2);
+  border-radius:10px;
+  font-size:13px;
+  color:rgba(245,243,255,0.6);
+  transition:all 0.25s;
+  display:flex;align-items:center;gap:8px;
+}
+.wide-item:hover{
+  border-color:var(--lime);
+  color:var(--lime);
+  background:rgba(210,255,94,0.03);
+}
+.wide-item-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--purple);
+  flex-shrink:0;
+  transition:background 0.2s;
+}
+.wide-item:hover .wide-item-dot{background:var(--lime);}
+
+/* OWNER PHOTO */
+/* owner photo styles moved to founder section */
 
 /* ABOUT */
 #about{
@@ -1084,6 +1204,196 @@ footer{
 }
 .footer-legal a:hover{color:var(--lime);}
 
+/* FOUNDER SECTION */
+.founder-section{
+  padding:120px 48px;
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+}
+.founder-bg-text{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:var(--font-display);
+  font-size:clamp(120px,20vw,280px);
+  color:rgba(79,17,255,0.04);
+  letter-spacing:0.15em;
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+  line-height:1;
+}
+.founder-inner{
+  display:grid;
+  grid-template-columns:420px 1fr;
+  gap:80px;
+  align-items:start;
+  position:relative;z-index:1;
+}
+.founder-photo-col{}
+.founder-photo-frame{
+  position:relative;
+  width:100%;
+  max-width:380px;
+}
+.founder-photo-area{
+  display:block;
+  width:100%;
+  aspect-ratio:3/4;
+  border-radius:20px;
+  background:var(--grey);
+  border:2px dashed rgba(79,17,255,0.5);
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:all 0.35s;
+}
+.founder-photo-area:hover{
+  border-color:var(--lime);
+  border-style:solid;
+  background:rgba(210,255,94,0.02);
+}
+.founder-photo-area.has-image{
+  border-style:solid;
+  border-color:var(--purple);
+  border-width:3px;
+}
+.founder-photo-area img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  border-radius:18px;
+  z-index:2;
+}
+.owner-photo-input{
+  position:absolute;inset:0;opacity:0;cursor:pointer;z-index:5;
+}
+.founder-photo-placeholder{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:10px;
+  z-index:1;
+  transition:opacity 0.3s;
+}
+.founder-photo-area.has-image .founder-photo-placeholder{opacity:0;pointer-events:none;}
+.founder-photo-icon{font-size:48px;opacity:0.3;}
+.founder-photo-label{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.2em;
+  color:var(--muted);
+  text-align:center;
+  text-transform:uppercase;
+  line-height:1.6;
+}
+.founder-photo-hint-sub{
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:rgba(107,95,138,0.4);
+  letter-spacing:0.1em;
+}
+.founder-photo-glow{
+  position:absolute;
+  bottom:-40px;right:-40px;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(79,17,255,0.4),transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+.founder-photo-corner{
+  position:absolute;
+  width:28px;height:28px;
+  border-color:var(--lime);
+  border-style:solid;
+  pointer-events:none;
+  z-index:3;
+}
+.founder-photo-corner-tl{
+  top:-6px;left:-6px;
+  border-width:3px 0 0 3px;
+  border-radius:4px 0 0 0;
+}
+.founder-photo-corner-br{
+  bottom:-6px;right:-6px;
+  border-width:0 3px 3px 0;
+  border-radius:0 0 4px 0;
+}
+.founder-photo-caption{
+  margin-top:24px;
+  padding:20px 24px;
+  background:rgba(79,17,255,0.08);
+  border:1px solid rgba(79,17,255,0.2);
+  border-radius:14px;
+}
+.founder-caption-name{
+  font-family:var(--font-display);
+  font-size:28px;
+  letter-spacing:0.08em;
+  color:var(--white);
+  margin-bottom:4px;
+}
+.founder-caption-role{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.2em;
+  color:var(--lime);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.founder-caption-loc{
+  font-size:13px;
+  color:var(--muted);
+}
+.founder-headline{
+  font-family:var(--font-display);
+  font-size:clamp(56px,7vw,88px);
+  line-height:0.95;
+  margin:16px 0 24px;
+  letter-spacing:-0.01em;
+}
+.founder-headline-lime{color:var(--lime);}
+.founder-bio{
+  font-size:15px;
+  line-height:1.8;
+  color:rgba(245,243,255,0.65);
+  margin-bottom:16px;
+}
+.founder-bio strong{color:var(--lime);}
+.founder-traits{
+  display:flex;flex-wrap:wrap;gap:12px;
+  margin-top:36px;
+}
+.founder-trait{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 18px;
+  background:rgba(79,17,255,0.08);
+  border:1px solid rgba(79,17,255,0.25);
+  border-radius:100px;
+  transition:all 0.25s;
+}
+.founder-trait:hover{
+  background:rgba(79,17,255,0.2);
+  border-color:var(--lime);
+  transform:translateY(-2px);
+}
+.founder-trait-icon{font-size:16px;}
+.founder-trait-label{
+  font-size:13px;
+  font-weight:600;
+  color:var(--white);
+  white-space:nowrap;
+}
+@media(max-width:1024px){
+  .founder-inner{grid-template-columns:1fr;gap:48px;}
+  .founder-photo-frame{max-width:320px;margin:0 auto;}
+  .founder-photo-caption{text-align:center;}
+}
+@media(max-width:768px){
+  .founder-section{padding:80px 24px;}
+}
+
 /* REVEAL ANIMATIONS */
 .reveal{
   opacity:0;
@@ -1141,7 +1451,9 @@ footer{
 /* RESPONSIVE */
 @media(max-width:1024px){
   .stats-bar{grid-template-columns:repeat(2,1fr);}
-  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .services-grid,.services-grid-4{grid-template-columns:repeat(2,1fr);}
+  .wide-grid{grid-template-columns:repeat(2,1fr);}
+  .wide-inner{grid-template-columns:1fr;}
   #about{grid-template-columns:1fr;gap:48px;}
   .about-logo-display{max-width:360px;margin:0 auto;}
   .careers-content{grid-template-columns:1fr;}
@@ -1161,7 +1473,8 @@ footer{
   .stats-bar{grid-template-columns:1fr 1fr;padding:0;}
   .stat-item{padding:24px 16px;}
   .stat-num{font-size:40px;}
-  .services-grid{grid-template-columns:1fr;}
+  .services-grid,.services-grid-2,.services-grid-4{grid-template-columns:1fr;}
+  .wide-grid{grid-template-columns:repeat(2,1fr);}
   .form-row{grid-template-columns:1fr;}
   footer{padding:60px 24px 24px;}
   .footer-grid{grid-template-columns:1fr;}
@@ -1184,6 +1497,7 @@ footer{
   <a href="#about" onclick="closeMobile()">About</a>
   <a href="#services" onclick="closeMobile()">Services</a>
   <a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank" onclick="closeMobile()">Work</a>
+  <a href="#founder" onclick="closeMobile()">Founder</a>
   <a href="#careers" onclick="closeMobile()">Join Us</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
@@ -1191,9 +1505,9 @@ footer{
 <!-- NAV -->
 <nav id="navbar">
   <a href="#home" class="nav-logo">
-   <div class="nav-logo-box" id="nav-logo-box">
-  <img src="https://raw.githubusercontent.com/vaghelancestudio/vaghelancestudio.github.io/refs/heads/main/logo.svg" style="width:100%; height:100%; object-fit:contain; padding:6px;">
-</div>
+    <div class="nav-logo-box" id="nav-logo-box">
+      <img src="https://raw.githubusercontent.com/vaghelancestudio/vaghelancestudio.github.io/refs/heads/main/logo.svg" alt="VAGHELANCE STUDIO Logo"/>
+    </div>
     <span class="nav-brand">VAGHELANCE STUDIO</span>
   </a>
   <div class="nav-links">
@@ -1201,6 +1515,7 @@ footer{
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="https://www.behance.net/gallery/229791597/Graphic-Design-Portfolio-2025" target="_blank">Work</a>
+    <a href="#founder">Founder</a>
     <a href="#careers">Join Us</a>
     <a href="#contact" class="nav-cta">Let's Elevate Your Brand</a>
   </div>
@@ -1275,78 +1590,288 @@ footer{
 <section id="services">
   <div class="section-label reveal">What We Do</div>
   <h2 class="section-heading reveal reveal-delay-1">Everything<br><span style="color:var(--lime)">Under One</span><br><span style="opacity:0.3">Roof.</span></h2>
-  <p class="section-sub reveal reveal-delay-2">From visual identity to viral content — we cover it all.</p>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <span class="service-num">01</span>
-      <span class="service-icon">◈</span>
-      <h3 class="service-title">Brand Identity Design</h3>
-      <p class="service-desc">Logos, color systems, typography, and design language. Build a brand that's consistent, professional, and instantly recognizable.</p>
-      <div class="service-tags">
-        <span class="tag">Logo Design</span>
-        <span class="tag">Color Palette</span>
-        <span class="tag">Typography</span>
-        <span class="tag">Brand Guidelines</span>
+  <p class="section-sub reveal reveal-delay-2">Design. Print. Digital. Video. Marketing. One studio handles it all — from your first logo to your last banner print.</p>
+
+  <!-- GROUP 1: BRAND IDENTITY -->
+  <div class="services-category reveal reveal-delay-1">
+    <div class="services-cat-header">
+      <div class="services-cat-icon">◈</div>
+      <div>
+        <div class="services-cat-label">Group 01</div>
+        <div class="services-cat-title">Brand Identity</div>
       </div>
     </div>
-    <div class="service-card reveal reveal-delay-1">
-      <span class="service-num">02</span>
-      <span class="service-icon">⬡</span>
-      <h3 class="service-title">Print & Packaging</h3>
-      <p class="service-desc">T-shirts, clothing, banners, packaging that sells. Design that people can actually touch — print-ready artwork that stands out.</p>
-      <div class="service-tags">
-        <span class="tag">Packaging</span>
-        <span class="tag">Clothing Graphics</span>
-        <span class="tag">Banners</span>
-        <span class="tag">Posters</span>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-num">01</span>
+        <span class="service-icon">◈</span>
+        <h3 class="service-title">Logo & Brand Identity</h3>
+        <p class="service-desc">Full brand systems — logo marks, color palettes, typography, and brand guidelines that make your business instantly recognizable.</p>
+        <div class="service-tags">
+          <span class="tag">Logo Design</span>
+          <span class="tag">Brand Guidelines</span>
+          <span class="tag">Color Systems</span>
+          <span class="tag">Typography</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">02</span>
+        <span class="service-icon">◻</span>
+        <h3 class="service-title">Visiting Cards</h3>
+        <p class="service-desc">Make the right first impression. Custom visiting card design that reflects your brand — bold, clean, and professional. Print-ready files included.</p>
+        <div class="service-tags">
+          <span class="tag">Standard Cards</span>
+          <span class="tag">Luxury Finish</span>
+          <span class="tag">Double Sided</span>
+          <span class="tag">Print Ready</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-num">03</span>
+        <span class="service-icon">◩</span>
+        <h3 class="service-title">Brochures & Pamphlets</h3>
+        <p class="service-desc">Multi-fold brochures, single-page pamphlets, leaflets — designed to communicate your brand story clearly and beautifully. Every format covered.</p>
+        <div class="service-tags">
+          <span class="tag">Bi-Fold</span>
+          <span class="tag">Tri-Fold</span>
+          <span class="tag">Leaflets</span>
+          <span class="tag">Pamphlets</span>
+          <span class="tag">Catalogues</span>
+        </div>
       </div>
     </div>
-    <div class="service-card reveal reveal-delay-2">
-      <span class="service-num">03</span>
-      <span class="service-icon">⬢</span>
-      <h3 class="service-title">Digital & UI Design</h3>
-      <p class="service-desc">Social media graphics, UI/UX, ads, posts, stories. Visuals that stop the scroll — designed for Instagram, Meta, and beyond.</p>
-      <div class="service-tags">
-        <span class="tag">Social Media</span>
-        <span class="tag">UI/UX</span>
-        <span class="tag">Ad Creatives</span>
-        <span class="tag">Figma</span>
+  </div>
+
+  <!-- GROUP 2: PRINT COLLATERAL -->
+  <div class="services-category reveal reveal-delay-1">
+    <div class="services-cat-header">
+      <div class="services-cat-icon">⬡</div>
+      <div>
+        <div class="services-cat-label">Group 02</div>
+        <div class="services-cat-title">Design & Print Collateral</div>
       </div>
     </div>
-    <div class="service-card reveal reveal-delay-1">
-      <span class="service-num">04</span>
-      <span class="service-icon">◉</span>
-      <h3 class="service-title">Photography & Mockups</h3>
-      <p class="service-desc">Product photography, AI art, professional mockups. Great products deserve great photography — and we deliver exactly that.</p>
-      <div class="service-tags">
-        <span class="tag">Product Photos</span>
-        <span class="tag">AI Art</span>
-        <span class="tag">Mockups</span>
-        <span class="tag">Retouching</span>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-num">04</span>
+        <span class="service-icon">⬡</span>
+        <h3 class="service-title">Stationery & Collateral Design</h3>
+        <p class="service-desc">Letterheads, envelopes, ID cards, invoices, folders — a complete branded stationery suite for professional businesses.</p>
+        <div class="service-tags">
+          <span class="tag">Letterheads</span>
+          <span class="tag">Envelopes</span>
+          <span class="tag">ID Cards</span>
+          <span class="tag">Folders</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">05</span>
+        <span class="service-icon">▦</span>
+        <h3 class="service-title">Packaging Design</h3>
+        <p class="service-desc">Product packaging that sells from the shelf — boxes, pouches, labels, and wrappers. Dieline-ready, print-ready, market-ready.</p>
+        <div class="service-tags">
+          <span class="tag">Box Design</span>
+          <span class="tag">Labels</span>
+          <span class="tag">Pouches</span>
+          <span class="tag">Dieline</span>
+          <span class="tag">Wrappers</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-num">06</span>
+        <span class="service-icon">▤</span>
+        <h3 class="service-title">Apparel & Merchandise</h3>
+        <p class="service-desc">T-shirt graphics, hoodie prints, tote bags, caps, merchandise — creative apparel design for brands, events, and merch drops.</p>
+        <div class="service-tags">
+          <span class="tag">T-Shirts</span>
+          <span class="tag">Hoodies</span>
+          <span class="tag">Merch</span>
+          <span class="tag">Event Wear</span>
+        </div>
       </div>
     </div>
-    <div class="service-card reveal reveal-delay-2">
-      <span class="service-num">05</span>
-      <span class="service-icon">▶</span>
-      <h3 class="service-title">Video & Reels</h3>
-      <p class="service-desc">From concept to final cut — brand videos, product reels, and talking-head shoots. Video content that performs, period.</p>
-      <div class="service-tags">
-        <span class="tag">Reels</span>
-        <span class="tag">Brand Video</span>
-        <span class="tag">Editing</span>
-        <span class="tag">Scriptwriting</span>
+  </div>
+
+  <!-- GROUP 3: LARGE FORMAT PRINTING -->
+  <div class="services-category reveal reveal-delay-1">
+    <div class="services-cat-header">
+      <div class="services-cat-icon">⊞</div>
+      <div>
+        <div class="services-cat-label">Group 03</div>
+        <div class="services-cat-title">Large Format Printing — We Print Everything</div>
       </div>
     </div>
-    <div class="service-card reveal reveal-delay-3">
-      <span class="service-num">06</span>
-      <span class="service-icon">✦</span>
-      <h3 class="service-title">Digital Marketing</h3>
-      <p class="service-desc">Meta ads, content writing, hashtag & keyword research, social media management. Great content needs a great strategy behind it.</p>
-      <div class="service-tags">
-        <span class="tag">Meta Ads</span>
-        <span class="tag">SEO</span>
-        <span class="tag">Content Writing</span>
-        <span class="tag">Social Media</span>
+    <div class="services-grid services-grid-2">
+      <div class="service-card reveal">
+        <span class="service-num">07</span>
+        <span class="service-icon">⊞</span>
+        <h3 class="service-title">Outdoor & Signage Printing</h3>
+        <p class="service-desc">From street-side flex banners to massive outdoor hoardings — high-resolution wide format printing for every outdoor visibility need. Weather-resistant, UV-coated, and vibrant.</p>
+        <div class="service-tags">
+          <span class="tag">Flex Banners</span>
+          <span class="tag">Hoardings</span>
+          <span class="tag">Signboards</span>
+          <span class="tag">Boards</span>
+          <span class="tag">Backlit</span>
+        </div>
+        <div class="print-formats">
+          <div class="print-formats-label">All formats we print</div>
+          <div class="print-format-list">
+            <span class="print-pill">Flex Banner</span>
+            <span class="print-pill">Vinyl Banner</span>
+            <span class="print-pill">Canopy Banner</span>
+            <span class="print-pill">Signboard</span>
+            <span class="print-pill">Hoarding</span>
+            <span class="print-pill">Backlit Board</span>
+            <span class="print-pill">Acrylic Board</span>
+            <span class="print-pill">Metal Board</span>
+          </div>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">08</span>
+        <span class="service-icon">◻</span>
+        <h3 class="service-title">Event & Exhibition Printing</h3>
+        <p class="service-desc">Gazebos, canopy structures, pop-up displays, standees, and light boxes for events, exhibitions, trade shows, and retail activations.</p>
+        <div class="service-tags">
+          <span class="tag">Gazebos</span>
+          <span class="tag">Standees</span>
+          <span class="tag">Pop-ups</span>
+          <span class="tag">Light Boxes</span>
+          <span class="tag">Exhibition</span>
+        </div>
+        <div class="print-formats">
+          <div class="print-formats-label">All formats we print</div>
+          <div class="print-format-list">
+            <span class="print-pill">Gazebo</span>
+            <span class="print-pill">Canopy</span>
+            <span class="print-pill">Light Box</span>
+            <span class="print-pill">Standee</span>
+            <span class="print-pill">Roll-up Banner</span>
+            <span class="print-pill">Exhibition Panel</span>
+            <span class="print-pill">Backdrop</span>
+            <span class="print-pill">Step & Repeat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Wide print card -->
+    <div class="services-grid" style="margin-top:1px;">
+      <div class="service-card-wide reveal">
+        <div class="wide-inner">
+          <div class="wide-left">
+            <span class="service-icon">🖨</span>
+            <h3 class="service-title">All Print Formats — One Studio</h3>
+            <p class="service-desc" style="margin-top:10px;">We print in every format. If it can be printed, we print it. Design + print under one roof means faster turnaround and zero miscommunication.</p>
+          </div>
+          <div class="wide-right">
+            <div class="wide-grid">
+              <div class="wide-item"><span class="wide-item-dot"></span>Flex Banners</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Canopy Banners</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Posters (All Sizes)</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Signboards / Boards</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Gazebos</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Light Boxes</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Packaging Boxes</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Brochures & Leaflets</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Pamphlets</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Visiting Cards</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Stickers & Labels</div>
+              <div class="wide-item"><span class="wide-item-dot"></span>Standees & Roll-ups</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP 4: DIGITAL & SOCIAL -->
+  <div class="services-category reveal reveal-delay-1">
+    <div class="services-cat-header">
+      <div class="services-cat-icon">⬢</div>
+      <div>
+        <div class="services-cat-label">Group 04</div>
+        <div class="services-cat-title">Digital & Social Media Design</div>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-num">09</span>
+        <span class="service-icon">⬢</span>
+        <h3 class="service-title">Social Media Design</h3>
+        <p class="service-desc">Posts, stories, carousels, reel covers, highlights — consistently designed social media content that builds brand recall across every platform.</p>
+        <div class="service-tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">Facebook</span>
+          <span class="tag">LinkedIn</span>
+          <span class="tag">Carousels</span>
+          <span class="tag">Stories</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">10</span>
+        <span class="service-icon">⬛</span>
+        <h3 class="service-title">Ad Creatives & UI/UX</h3>
+        <p class="service-desc">Meta ad creatives, Google banners, landing page UI design — visuals engineered to convert, not just look good.</p>
+        <div class="service-tags">
+          <span class="tag">Meta Ads</span>
+          <span class="tag">Google Ads</span>
+          <span class="tag">UI/UX</span>
+          <span class="tag">Figma</span>
+          <span class="tag">Landing Pages</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-num">11</span>
+        <span class="service-icon">◉</span>
+        <h3 class="service-title">Photography & AI Art</h3>
+        <p class="service-desc">Product photography, AI-generated visuals, and professional mockups — high-quality imagery at a fraction of traditional cost using AI.</p>
+        <div class="service-tags">
+          <span class="tag">Product Photos</span>
+          <span class="tag">AI Art</span>
+          <span class="tag">Mockups</span>
+          <span class="tag">Retouching</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP 5: VIDEO & MARKETING -->
+  <div class="services-category reveal reveal-delay-1">
+    <div class="services-cat-header">
+      <div class="services-cat-icon">▶</div>
+      <div>
+        <div class="services-cat-label">Group 05</div>
+        <div class="services-cat-title">Video, Content & Digital Marketing</div>
+      </div>
+    </div>
+    <div class="services-grid services-grid-2">
+      <div class="service-card reveal">
+        <span class="service-num">12</span>
+        <span class="service-icon">▶</span>
+        <h3 class="service-title">Video & Reels Production</h3>
+        <p class="service-desc">Brand videos, product reels, ad videos, and talking-head content — from scripting to final edit. Also available: anchoring and voiceover for ad videos and brand content.</p>
+        <div class="service-tags">
+          <span class="tag">Reels</span>
+          <span class="tag">Brand Videos</span>
+          <span class="tag">Ad Videos</span>
+          <span class="tag">Editing</span>
+          <span class="tag">Scripting</span>
+          <span class="tag">Anchoring</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">13</span>
+        <span class="service-icon">✦</span>
+        <h3 class="service-title">Digital Marketing & Strategy</h3>
+        <p class="service-desc">Meta ads, SEO, content writing, hashtag research, social media management, and online community engagement. Great content needs a strategy behind it.</p>
+        <div class="service-tags">
+          <span class="tag">Meta Ads</span>
+          <span class="tag">SEO</span>
+          <span class="tag">Content Writing</span>
+          <span class="tag">Social Media Mgmt</span>
+          <span class="tag">Meme Marketing</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1355,8 +1880,11 @@ footer{
 <!-- ABOUT -->
 <section id="about">
   <div class="about-visual reveal">
+    <!-- LOGO DISPLAY -->
     <div class="about-logo-display">
-      <img src="https://raw.githubusercontent.com/vaghelancestudio/vaghelancestudio.github.io/refs/heads/main/logo.svg" alt="Vaghelance Logo" style="max-width:70%; max-height:70%; object-fit:contain; z-index:1;">
+      <div>
+        <div class="logo-placeholder-label">Place your<br/>SVG / PNG logo<br/>here<br/><br/>Background: #4F11FF</div>
+      </div>
       <div class="about-badge">
         <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
           <path id="circle-path" d="M 60,60 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0" fill="none"/>
@@ -1408,6 +1936,67 @@ footer{
         <span class="tool-chip">Midjourney</span>
         <span class="tool-chip">Claude AI</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEET THE FOUNDER -->
+<section id="founder" class="founder-section">
+  <div class="founder-bg-text">ARYAN</div>
+  <div class="founder-inner">
+    <div class="founder-photo-col reveal">
+      <div class="founder-photo-frame">
+        <label class="founder-photo-area" id="owner-photo-area" title="Click or drag your photo here">
+          <input type="file" accept="image/*" class="owner-photo-input" id="owner-photo-input" onchange="loadOwnerPhoto(event)"/>
+          <div class="founder-photo-placeholder">
+            <div class="founder-photo-icon">🧑‍💼</div>
+            <div class="founder-photo-label">Click or drop<br/>your photo here</div>
+            <div class="founder-photo-hint-sub">JPG, PNG, WEBP</div>
+          </div>
+        </label>
+        <div class="founder-photo-glow"></div>
+        <div class="founder-photo-corner founder-photo-corner-tl"></div>
+        <div class="founder-photo-corner founder-photo-corner-br"></div>
+      </div>
+      <div class="founder-photo-caption">
+        <div class="founder-caption-name">Aryan Vaghela</div>
+        <div class="founder-caption-role">Founder & Creative Director</div>
+        <div class="founder-caption-loc">📍 Rajkot, Gujarat, India</div>
+      </div>
+    </div>
+    <div class="founder-content-col reveal reveal-delay-2">
+      <div class="section-label">The Face Behind the Studio</div>
+      <h2 class="founder-headline">The One<br/><span class="founder-headline-lime">Running</span><br/>This Place.</h2>
+      <p class="founder-bio">I'm <strong>Aryan Vaghela</strong> — designer, strategist, AI early adopter, anime fan, and the person who started VAGHELANCE STUDIO from a belief that most brands are leaving money on the table just because they look average.</p>
+      <p class="founder-bio">I hold an MBA in Business Analytics from Marwadi University and a BBA from RK University. I've worked at Kellanova, led digital marketing for an IT startup, and run my own freelance creative practice since 2023 — all while keeping a learning mindset and staying ahead of every new tool that comes out.</p>
+      <p class="founder-bio">I'm an INTJ. I think in systems, care deeply about quality, and genuinely believe great design changes how people feel about a brand. I love Japan, manga, classic literature, and doing work that actually means something.</p>
+      <div class="founder-traits">
+        <div class="founder-trait">
+          <div class="founder-trait-icon">🎯</div>
+          <div class="founder-trait-label">Strategic Thinker</div>
+        </div>
+        <div class="founder-trait">
+          <div class="founder-trait-icon">🤖</div>
+          <div class="founder-trait-label">AI-Native Creator</div>
+        </div>
+        <div class="founder-trait">
+          <div class="founder-trait-icon">🎨</div>
+          <div class="founder-trait-label">Full-Stack Designer</div>
+        </div>
+        <div class="founder-trait">
+          <div class="founder-trait-icon">📊</div>
+          <div class="founder-trait-label">Data-Driven</div>
+        </div>
+        <div class="founder-trait">
+          <div class="founder-trait-icon">🌏</div>
+          <div class="founder-trait-label">Global Mindset</div>
+        </div>
+        <div class="founder-trait">
+          <div class="founder-trait-icon">⚡</div>
+          <div class="founder-trait-label">Fast Executor</div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-primary" style="display:inline-flex;margin-top:40px;">Work with me →</a>
     </div>
   </div>
 </section>
@@ -1653,7 +2242,7 @@ footer{
     <div class="footer-brand-col">
       <a href="#home" class="footer-logo">
         <div class="footer-logo-box">
-          <img src="https://raw.githubusercontent.com/vaghelancestudio/vaghelancestudio.github.io/refs/heads/main/logo.svg" alt="Vaghelance Logo" style="width:100%; height:100%; object-fit:contain; padding:4px;">
+          <span class="placeholder-text">LOGO</span>
         </div>
         <span class="footer-brand-name">VAGHELANCE STUDIO</span>
       </a>
@@ -1783,6 +2372,25 @@ function handleSubmit(e) {
   e.preventDefault();
   document.getElementById('contact-form').style.display = 'none';
   document.getElementById('form-success').style.display = 'block';
+}
+
+// OWNER PHOTO UPLOAD
+function loadOwnerPhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = evt => {
+    const area = document.getElementById('owner-photo-area');
+    // Remove existing img if any
+    const existing = area.querySelector('img.owner-img');
+    if (existing) existing.remove();
+    const img = document.createElement('img');
+    img.src = evt.target.result;
+    img.className = 'owner-img';
+    area.appendChild(img);
+    area.classList.add('has-image');
+  };
+  reader.readAsDataURL(file);
 }
 
 // LOGO DROP SUPPORT (drag and drop logo file)
