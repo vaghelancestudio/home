@@ -86,26 +86,18 @@ nav.scrolled{padding:14px 48px;background:rgba(10,8,18,0.92);}
   text-decoration:none;
 }
 .nav-logo-box{
-  width:42px;height:42px;
+  width:120px;height:48px;
   background:var(--purple);
-  border-radius:8px;
+  border-radius:10px;
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
   overflow:hidden;
+  box-shadow:0 0 0 2px rgba(210,255,94,0.2);
 }
-.nav-logo-box img{width:100%;height:100%;object-fit:contain;}
-.nav-logo-box .placeholder-text{
-  font-family:var(--font-display);
-  font-size:10px;
-  color:rgba(210,255,94,0.4);
-  letter-spacing:0.05em;
-  text-align:center;
-  line-height:1.2;
-  padding:2px;
-}
+.nav-logo-box img{width:100%;height:100%;object-fit:contain;padding:6px 10px;}
 .nav-brand{
   font-family:var(--font-display);
-  font-size:18px;
+  font-size:22px;
   letter-spacing:0.12em;
   color:var(--white);
 }
@@ -586,6 +578,19 @@ section{padding:120px 48px;}
 /* owner photo styles moved to founder section */
 
 /* ABOUT */
+.about-logo-inline{
+  margin-bottom:32px;
+}
+.about-logo-inline img{
+  height:72px;
+  width:auto;
+  object-fit:contain;
+  display:block;
+  background:var(--purple);
+  border-radius:14px;
+  padding:12px 24px;
+  box-shadow:0 0 0 1px rgba(210,255,94,0.15), 0 8px 32px rgba(79,17,255,0.3);
+}
 #about{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -1243,32 +1248,21 @@ footer{
   aspect-ratio:3/4;
   border-radius:20px;
   background:var(--grey);
-  border:2px dashed rgba(79,17,255,0.5);
+  border:2px solid rgba(79,17,255,0.4);
   position:relative;
   overflow:hidden;
-  cursor:pointer;
-  transition:all 0.35s;
 }
-.founder-photo-area:hover{
-  border-color:var(--lime);
-  border-style:solid;
-  background:rgba(210,255,94,0.02);
-}
-.founder-photo-area.has-image{
-  border-style:solid;
-  border-color:var(--purple);
-  border-width:3px;
-}
+.founder-photo-area.has-image{border-color:var(--purple);}
 .founder-photo-area img{
   position:absolute;inset:0;
   width:100%;height:100%;
   object-fit:cover;
+  object-position:top center;
   border-radius:18px;
   z-index:2;
+  display:block;
 }
-.owner-photo-input{
-  position:absolute;inset:0;opacity:0;cursor:pointer;z-index:5;
-}
+
 .founder-photo-placeholder{
   position:absolute;inset:0;
   display:flex;flex-direction:column;
@@ -1882,9 +1876,7 @@ footer{
   <div class="about-visual reveal">
     <!-- LOGO DISPLAY -->
     <div class="about-logo-display">
-      <div>
-        <div class="logo-placeholder-label">Place your<br/>SVG / PNG logo<br/>here<br/><br/>Background: #4F11FF</div>
-      </div>
+        <img src="https://raw.githubusercontent.com/vaghelancestudio/vaghelancestudio.github.io/refs/heads/main/logo.svg" alt="VAGHELANCE STUDIO Logo" style="max-width:80%;max-height:80%;object-fit:contain;position:relative;z-index:1;"/>
       <div class="about-badge">
         <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
           <path id="circle-path" d="M 60,60 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0" fill="none"/>
@@ -1897,6 +1889,9 @@ footer{
     </div>
   </div>
   <div class="about-content">
+    <div class="about-logo-inline reveal">
+      <img src="https://raw.githubusercontent.com/vaghelancestudio/vaghelancestudio.github.io/refs/heads/main/logo.svg" alt="VAGHELANCE STUDIO"/>
+    </div>
     <div class="section-label reveal">Who We Are</div>
     <h2 class="section-heading reveal reveal-delay-1">Built by a<br><span style="color:var(--lime)">Creator.</span><br>Run Like a<br>Studio.</h2>
     <p class="about-story reveal reveal-delay-2">Hi, I'm <strong>Aryan Vaghela</strong> — Founder & Creative Director of <strong>VAGHELANCE STUDIO</strong>. I started this studio because great brands shouldn't have to choose between good design and good strategy.</p>
@@ -1946,14 +1941,24 @@ footer{
   <div class="founder-inner">
     <div class="founder-photo-col reveal">
       <div class="founder-photo-frame">
-        <label class="founder-photo-area" id="owner-photo-area" title="Click or drag your photo here">
-          <input type="file" accept="image/*" class="owner-photo-input" id="owner-photo-input" onchange="loadOwnerPhoto(event)"/>
-          <div class="founder-photo-placeholder">
-            <div class="founder-photo-icon">🧑‍💼</div>
-            <div class="founder-photo-label">Click or drop<br/>your photo here</div>
-            <div class="founder-photo-hint-sub">JPG, PNG, WEBP</div>
+        <!-- ════════════════════════════════════════════
+             YOUR PHOTO — just paste your image URL below
+             into  src=""  and you're done.
+             Works with Google Drive, Dropbox, Imgur,
+             GitHub, or any direct image link.
+             ════════════════════════════════════════════ -->
+        <div class="founder-photo-area has-image" id="owner-photo-area">
+          <img
+            src="YOUR_PHOTO_URL_HERE"
+            alt="Aryan Vaghela — Founder, VAGHELANCE STUDIO"
+            id="founder-img"
+            onerror="this.parentElement.classList.remove('has-image');this.style.display='none';document.getElementById('photo-fallback').style.display='flex';"
+          />
+          <div id="photo-fallback" style="display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+            <div style="font-size:48px;opacity:0.25;">🧑‍💼</div>
+            <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;color:var(--muted);text-align:center;text-transform:uppercase;line-height:1.8;padding:0 24px;">Paste your photo URL<br/>in the HTML src=""</div>
           </div>
-        </label>
+        </div>
         <div class="founder-photo-glow"></div>
         <div class="founder-photo-corner founder-photo-corner-tl"></div>
         <div class="founder-photo-corner founder-photo-corner-br"></div>
@@ -2242,7 +2247,7 @@ footer{
     <div class="footer-brand-col">
       <a href="#home" class="footer-logo">
         <div class="footer-logo-box">
-          <span class="placeholder-text">LOGO</span>
+          <img src="https://raw.githubusercontent.com/vaghelancestudio/vaghelancestudio.github.io/refs/heads/main/logo.svg" alt="VAGHELANCE STUDIO Logo" style="width:100%;height:100%;object-fit:contain;padding:4px;"/>
         </div>
         <span class="footer-brand-name">VAGHELANCE STUDIO</span>
       </a>
@@ -2374,62 +2379,7 @@ function handleSubmit(e) {
   document.getElementById('form-success').style.display = 'block';
 }
 
-// OWNER PHOTO UPLOAD
-function loadOwnerPhoto(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = evt => {
-    const area = document.getElementById('owner-photo-area');
-    // Remove existing img if any
-    const existing = area.querySelector('img.owner-img');
-    if (existing) existing.remove();
-    const img = document.createElement('img');
-    img.src = evt.target.result;
-    img.className = 'owner-img';
-    area.appendChild(img);
-    area.classList.add('has-image');
-  };
-  reader.readAsDataURL(file);
-}
-
-// LOGO DROP SUPPORT (drag and drop logo file)
-const navLogoBox = document.getElementById('nav-logo-box');
-navLogoBox.title = 'Drop your logo image here';
-navLogoBox.style.cursor = 'pointer';
-navLogoBox.addEventListener('dragover', e => { e.preventDefault(); navLogoBox.style.borderColor = 'var(--lime)'; });
-navLogoBox.addEventListener('dragleave', () => { navLogoBox.style.borderColor = ''; });
-navLogoBox.addEventListener('drop', e => {
-  e.preventDefault();
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = evt => {
-      navLogoBox.innerHTML = `<img src="${evt.target.result}" alt="Logo" style="width:100%;height:100%;object-fit:contain;padding:4px;"/>`;
-      document.querySelectorAll('.footer-logo-box').forEach(b => {
-        b.innerHTML = `<img src="${evt.target.result}" alt="Logo" style="width:100%;height:100%;object-fit:contain;padding:2px;"/>`;
-      });
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-// ABOUT LOGO AREA - also accepts drop
-const aboutLogoDisplay = document.querySelector('.about-logo-display');
-if (aboutLogoDisplay) {
-  aboutLogoDisplay.addEventListener('dragover', e => { e.preventDefault(); });
-  aboutLogoDisplay.addEventListener('drop', e => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = evt => {
-        aboutLogoDisplay.innerHTML = `<img src="${evt.target.result}" alt="Logo" style="max-width:80%;max-height:80%;object-fit:contain;"/>`;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-}
+// LOGO is loaded from GitHub URL directly
 
 // TEXT SCRAMBLE EFFECT on hero headline
 function scramble(el) {
