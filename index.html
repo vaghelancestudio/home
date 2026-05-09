@@ -19,7 +19,12 @@
   --font-mono:'Space Mono',monospace;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;cursor:none;}
+html{scroll-behavior:smooth;}
+/* Hide system cursor only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  html { cursor: none; }
+  a, button { cursor: none; }
+}
 body{
   background:var(--bg);
   color:var(--white);
@@ -2295,18 +2300,54 @@ footer{
 </footer>
 
 <script>
-// CURSOR
+// CURSOR — desktop mouse + mobile touch
 const cursor = document.getElementById('cursor');
 const follower = document.getElementById('cursor-follower');
 let mouseX = 0, mouseY = 0;
 let followerX = 0, followerY = 0;
+let isMobile = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
+// Show cursor only when mouse detected on desktop
+if (isMobile) {
+  cursor.style.opacity = '1';
+  follower.style.opacity = '0.5';
+}
+
+// DESKTOP: mouse move
 document.addEventListener('mousemove', e => {
   mouseX = e.clientX; mouseY = e.clientY;
   cursor.style.left = mouseX + 'px';
   cursor.style.top = mouseY + 'px';
+  cursor.style.opacity = '1';
+  follower.style.opacity = '1';
 });
 
+// MOBILE: track finger on touch start, move, and during scroll
+function updateCursorFromTouch(e) {
+  const t = e.touches[0];
+  if (!t) return;
+  mouseX = t.clientX;
+  mouseY = t.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+}
+document.addEventListener('touchstart', updateCursorFromTouch, { passive: true });
+document.addEventListener('touchmove', updateCursorFromTouch, { passive: true });
+
+// MOBILE SCROLL: interpolate cursor position downward as page scrolls
+let lastScrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+  if (isMobile) {
+    const delta = window.scrollY - lastScrollY;
+    // Shift cursor dot vertically opposite scroll direction (finger moves screen)
+    mouseY = Math.max(0, Math.min(window.innerHeight, mouseY - delta));
+    cursor.style.top = mouseY + 'px';
+  }
+  lastScrollY = window.scrollY;
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Smooth follower animation loop
 function animateFollower() {
   followerX += (mouseX - followerX) * 0.12;
   followerY += (mouseY - followerY) * 0.12;
@@ -2316,6 +2357,17 @@ function animateFollower() {
 }
 animateFollower();
 
+// Touch: pulse expand on tap
+document.addEventListener('touchstart', () => {
+  cursor.classList.add('expanded');
+  follower.classList.add('expanded');
+}, { passive: true });
+document.addEventListener('touchend', () => {
+  cursor.classList.remove('expanded');
+  follower.classList.remove('expanded');
+}, { passive: true });
+
+// Desktop: hover expand on interactive elements
 document.querySelectorAll('a,button,.service-card,.work-card,.project-card').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor.classList.add('expanded');
@@ -2327,7 +2379,7 @@ document.querySelectorAll('a,button,.service-card,.work-card,.project-card').for
   });
 });
 
-// NAVBAR SCROLL
+// NAVBAR SCROLL (desktop fallback — mobile handled above)
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 60);
